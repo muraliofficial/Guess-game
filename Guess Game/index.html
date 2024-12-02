@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Guess My Number</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Guess My Number</h1>
+        <div class="input">
+            <input type="number" pattern="/^?\d+\.?\d*$/" onkeypress="if(this.value.length==1) return false" id="userinput" autocomplete="off" />
+            <p>:</p>
+            <input type="text" id="compinput" disabled readonly />
+        </div>
+        <div class="check">
+            <button id="checkbtn" onclick="checkbtnclick()">Check</button>
+        </div>
+    </div>
+</body>
+
+<script src="./alert.js"></script>
+
+<script>
+
+    var client = document.getElementById("userinput");
+    var computer = document.getElementById("compinput");
+    var result;
+
+
+    //Random Number Generation
+    function randomnum() {
+        let a = Math.floor(Math.random() * 10);
+        return a;
+    }
+
+    function checkbtnclick() {
+
+        if (!client.value) {
+            Swal.fire({
+                title: "Heyy...!!!!",
+                text: "Don't fool me... First Enter the number and Click !!!",
+                icon: "warning"
+            });
+        } else {
+            setTimeout(() => {
+                result = randomnum();
+                computer.value = result;
+            }, 1000);
+
+            setTimeout(() => {
+                check();
+            }, 2000);
+            
+            
+        }
+
+    }
+
+    function check() {
+        if (computer.value === client.value) {
+            Swal.fire({
+                title: "Awesome",
+                text: "Correct answer",
+                icon: "success"
+            });
+        } else {
+            Swal.fire({
+                title: "Try Again !",
+                text: "You're Wrong",
+                icon: "error"
+            });
+        }
+        client.value = null;
+        computer.value = null;
+    }
+
+</script>
+
+</html>
